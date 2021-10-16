@@ -1,3 +1,5 @@
+package ClientServerApplication;
+
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -11,7 +13,7 @@ class Client {
             // Set autoflush to true to the buffer gets flushed after use
             PrintWriter out = new PrintWriter(sock.getOutputStream(), true);
 
-            // Read information from the server
+            // Read information from the server into client input
             BufferedReader in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
 
             // Create an object to get information as user input
@@ -25,7 +27,7 @@ class Client {
                 user_input = scanner.nextLine();
 
                 // Send user input to the server
-                out.println("User entered: " + user_input);
+                out.println(user_input);
                 out.flush();
 
                 // Display if server has sent any replies

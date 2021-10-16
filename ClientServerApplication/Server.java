@@ -1,3 +1,5 @@
+package ClientServerApplication;
+
 import java.io.*;
 import java.net.*;
 
@@ -13,7 +15,7 @@ class Server {
             // Run infinitely until ctrl C interrupt provided
             while (true) {
                 Socket client = server.accept();
-                System.out.println("New Client: " + client.getInetAddress().getHostAddress().toString());
+                System.out.println("New Client IP:" + client.getRemoteSocketAddress());
 
                 // Create a new thread to handle the client
                 ClientHandler clientSocket = new ClientHandler(client);
