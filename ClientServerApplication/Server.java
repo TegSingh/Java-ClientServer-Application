@@ -71,8 +71,6 @@ class Server {
                             System.out.println("Client " + clientSocket.getRemoteSocketAddress()
                                     + " requests Display for To-do List");
                             out.println("1");
-                            LocalDate date = LocalDate.of(2021, 10, 21);
-                            todo_list.add_todo(1, "Boom baam", date);
                             todo_list.display_todo_list();
                             break;
 
@@ -88,10 +86,19 @@ class Server {
                             out.println("3");
                             break;
 
+                        // Adding Todo to the list
                         case 4:
                             System.out.println("Client " + clientSocket.getRemoteSocketAddress()
                                     + " requests Adding a To-do to the list");
                             out.println("4");
+                            String action_item = in.readLine();
+                            int id = Integer.parseInt(in.readLine());
+                            int year = Integer.parseInt(in.readLine());
+                            int month = Integer.parseInt(in.readLine());
+                            int day = Integer.parseInt(in.readLine());
+                            LocalDate dueDate = LocalDate.of(year, month, day);
+                            todo_list.add_todo(id, action_item, dueDate);
+                            todo_list.display_todo_list();
                             break;
 
                         case 5:

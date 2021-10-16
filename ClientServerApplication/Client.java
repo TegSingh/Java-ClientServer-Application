@@ -45,7 +45,56 @@ class Client {
 
                 // Display if server has sent any replies
 
-                System.out.println("Server replied: " + in.readLine());
+                String server_ack = in.readLine();
+                System.out.println("Server acknowledged: " + server_ack);
+                int server_choice = Integer.parseInt(server_ack);
+
+                switch (server_choice) {
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+
+                    // Add Todo
+                    case 4:
+                        System.out.println("Enter Action Item [Use Format provided in the README File]:");
+                        Scanner sc = new Scanner(System.in);
+                        String action_item = sc.nextLine();
+                        out.println(action_item);
+                        out.flush();
+
+                        System.out.println("Enter Task ID: ");
+                        int id = scanner.nextInt();
+                        out.println(id);
+                        out.flush();
+
+                        System.out.println("Enter year for due date: ");
+                        int year = scanner.nextInt();
+                        out.println(year);
+                        out.flush();
+
+                        System.out.println("Enter month for due date: ");
+                        int month = scanner.nextInt();
+                        out.println(month);
+                        out.flush();
+
+                        System.out.println("Enter day for due date: ");
+                        int day = scanner.nextInt();
+                        out.println(day);
+                        out.flush();
+
+                        break;
+                    case 5:
+                        break;
+                    case 6:
+                        break;
+                    case 7:
+                        break;
+                    default:
+                        break;
+                }
 
             }
 
