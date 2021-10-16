@@ -98,13 +98,18 @@ class Server {
                             int day = Integer.parseInt(in.readLine());
                             LocalDate dueDate = LocalDate.of(year, month, day);
                             todo_list.add_todo(id, action_item, dueDate);
-                            todo_list.display_todo_list();
                             break;
 
+                        // Removing item from Todo list given some date
                         case 5:
                             System.out.println("Client " + clientSocket.getRemoteSocketAddress()
                                     + " request Removing an item from To-do List for some date");
                             out.println("5");
+                            int year_delete = Integer.parseInt(in.readLine());
+                            int month_delete = Integer.parseInt(in.readLine());
+                            int day_delete = Integer.parseInt(in.readLine());
+                            LocalDate date_delete = LocalDate.of(year_delete, month_delete, day_delete);
+                            todo_list.remove_todo(date_delete);
                             break;
 
                         case 6:

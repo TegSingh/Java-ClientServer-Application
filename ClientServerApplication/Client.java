@@ -86,7 +86,24 @@ class Client {
                         out.flush();
 
                         break;
+
+                    // Remove Todos for a date
                     case 5:
+                        System.out.println("Enter year for due date: ");
+                        int year_delete = scanner.nextInt();
+                        out.println(year_delete);
+                        out.flush();
+
+                        System.out.println("Enter month for due date: ");
+                        int month_delete = scanner.nextInt();
+                        out.println(month_delete);
+                        out.flush();
+
+                        System.out.println("Enter day for due date: ");
+                        int day_delete = scanner.nextInt();
+                        out.println(day_delete);
+                        out.flush();
+
                         break;
                     case 6:
                         break;

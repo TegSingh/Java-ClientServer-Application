@@ -27,22 +27,29 @@ public class Todo_list {
     }
 
     // Method to remove an action item from the list
-    public String remove_todo(int id) {
+    public String remove_todo(LocalDate dueDate) {
+
+        int i = 0;
+        String return_string = "Todo IDs: ";
 
         // Get item to remove by looping through the entire list
         for (Todo_item item : todo_items) {
-            if (item.get_id() == id) {
+            if (item.get_dueDate().isEqual(dueDate)) {
                 System.out.println("Removing Item: " + item.toString());
 
                 // Store item info string in a variable
-                String item_string = item.toString();
-
+                return_string += item.get_id();
+                return_string += " ";
+                i++;
                 // Remove item from list
                 todo_items.remove(item);
-                return item_string;
             }
         }
 
+        return_string += "removed";
+        if (i > 0) {
+            return return_string;
+        }
         // Return error message
         return "Cannot find Item";
     }
