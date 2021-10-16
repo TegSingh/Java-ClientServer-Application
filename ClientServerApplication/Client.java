@@ -32,16 +32,21 @@ class Client {
                 System.out.println("5. Remove TO-DOs for a certain Date from the List");
                 System.out.println("6. Remove TO-DOs for a certain client from the List");
                 System.out.println("7. Request a file containing list from the Server");
+                System.out.println("Choose a number between 1-7: ");
+                // Get the choice from the user
+                int choice = scanner.nextInt();
 
                 // Read user input
-                user_input = scanner.nextLine();
+                // user_input = scanner.nextLine();
 
                 // Send user input to the server
-                out.println(user_input);
+                out.println(choice);
                 out.flush();
 
                 // Display if server has sent any replies
+
                 System.out.println("Server replied: " + in.readLine());
+
             }
 
             // Close the scanner object

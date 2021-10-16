@@ -2,9 +2,13 @@ package ClientServerApplication;
 
 import java.io.*;
 import java.net.*;
+import java.time.LocalDate;
+
+import Todo.*;
 
 // Declare and define the Server class
 class Server {
+
     public static void main(String[] args) {
 
         ServerSocket server = null;
@@ -39,6 +43,8 @@ class Server {
     // Each client handler is associated with one thread that handles one client
     private static class ClientHandler implements Runnable {
         private final Socket clientSocket;
+        // Make this variable static so all instances share the same instance
+        private static Todo_list todo_list = new Todo_list();
 
         public ClientHandler(Socket socket) {
             this.clientSocket = socket;
@@ -59,7 +65,56 @@ class Server {
                 // While Client messages exist in the buffer
                 while ((client_message = in.readLine()) != null) {
                     System.out.println("Client sends: " + client_message);
-                    out.println(client_message);
+                    int client_choice = Integer.parseInt(client_message);
+                    switch (client_choice) {
+                        case 1:
+                            System.out.println("Client " + clientSocket.getRemoteSocketAddress()
+                                    + " requests Display for To-do List");
+                            out.println("1");
+                            LocalDate date = LocalDate.of(2021, 10, 21);
+                            todo_list.add_todo(1, "Boom baam", date);
+                            todo_list.display_todo_list();
+                            break;
+
+                        case 2:
+                            System.out.println("Client " + clientSocket.getRemoteSocketAddress()
+                                    + " requests Display for To-do List for itself");
+                            out.println("2");
+                            break;
+
+                        case 3:
+                            System.out.println("Client " + clientSocket.getRemoteSocketAddress()
+                                    + " requests Display for To-do List for some date");
+                            out.println("3");
+                            break;
+
+                        case 4:
+                            System.out.println("Client " + clientSocket.getRemoteSocketAddress()
+                                    + " requests Adding a To-do to the list");
+                            out.println("4");
+                            break;
+
+                        case 5:
+                            System.out.println("Client " + clientSocket.getRemoteSocketAddress()
+                                    + " request Removing an item from To-do List for some date");
+                            out.println("5");
+                            break;
+
+                        case 6:
+                            System.out.println("Client " + clientSocket.getRemoteSocketAddress()
+                                    + " request removing its own To-dos ");
+                            out.println("6");
+                            break;
+
+                        case 7:
+                            System.out.println("Client " + clientSocket.getRemoteSocketAddress()
+                                    + " Request a file containing the list from the server");
+                            out.println("7");
+                            break;
+
+                        default:
+                            break;
+                    }
                 }
 
             } catch (Exception e) {
