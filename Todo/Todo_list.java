@@ -30,23 +30,25 @@ public class Todo_list {
     public String remove_todo(LocalDate dueDate) {
 
         int i = 0;
-        String return_string = "Todo IDs: ";
+        // Declare an iterator to avoid java.util.concurrent modification exception
+        Iterator<Todo_item> iterator = todo_items.iterator();
 
         // Get item to remove by looping through the entire list
-        for (Todo_item item : todo_items) {
+        while (iterator.hasNext()) {
+            Todo_item item = iterator.next();
+
             if (item.get_dueDate().isEqual(dueDate)) {
                 System.out.println("Removing Item: " + item.toString());
 
                 // Store item info string in a variable
-                return_string += item.get_id();
-                return_string += " ";
                 i++;
-                // Remove item from list
-                todo_items.remove(item);
+                // Remove item from iterator not the list to avoid concurrent modification
+                // exception
+                iterator.remove();
             }
         }
 
-        return_string += "removed";
+        String return_string = Integer.toString(i) + " items removed";
         if (i > 0) {
             return return_string;
         }

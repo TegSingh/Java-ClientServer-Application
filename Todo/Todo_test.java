@@ -60,7 +60,7 @@ public class Todo_test {
         todo_list.display_todo_list();
 
         // Test to remove an item from the list given a particular ID
-        todo_list.remove_todo(5);
+        todo_list.remove_todo(add_date);
 
         // Display the final state of the Todo-list
         todo_list.display_todo_list();

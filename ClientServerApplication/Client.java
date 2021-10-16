@@ -104,6 +104,9 @@ class Client {
                         out.println(day_delete);
                         out.flush();
 
+                        // Show the list of the removed IDs
+                        System.out.println(in.readLine());
+
                         break;
                     case 6:
                         break;

@@ -109,7 +109,8 @@ class Server {
                             int month_delete = Integer.parseInt(in.readLine());
                             int day_delete = Integer.parseInt(in.readLine());
                             LocalDate date_delete = LocalDate.of(year_delete, month_delete, day_delete);
-                            todo_list.remove_todo(date_delete);
+                            String removed_list = todo_list.remove_todo(date_delete);
+                            out.println(removed_list);
                             break;
 
                         case 6:
