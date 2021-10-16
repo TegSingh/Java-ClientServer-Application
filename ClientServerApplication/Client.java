@@ -23,6 +23,16 @@ class Client {
             // Continue running the client until the user sends exit message
             while (!"exit".equals(user_input)) {
 
+                // Display the Menu for the list of things a client
+                System.out.println("-------------------MENU-------------------");
+                System.out.println("1. Display TO-DO List");
+                System.out.println("2. Display TO-DO List for a certain Client");
+                System.out.println("3. Display TO-DO List for a certain Date");
+                System.out.println("4. Add a TO-DO to the List");
+                System.out.println("5. Remove TO-DOs for a certain Date from the List");
+                System.out.println("6. Remove TO-DOs for a certain client from the List");
+                System.out.println("7. Request a file containing list from the Server");
+
                 // Read user input
                 user_input = scanner.nextLine();
 
