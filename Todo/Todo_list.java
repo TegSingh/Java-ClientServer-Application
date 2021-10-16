@@ -60,6 +60,34 @@ public class Todo_list {
         return "Cannot find Item";
     }
 
+    // Method to remove an action item from the list
+    public String remove_todo_by_id(int client_id) {
+
+        int i = 0;
+        // Declare an iterator to avoid java.util.concurrent modification exception
+        Iterator<Todo_item> iterator = todo_items.iterator();
+
+        // Get item to remove by looping through the entire list
+        while (iterator.hasNext()) {
+            Todo_item item = iterator.next();
+
+            if (item.get_id() == client_id) {
+                System.out.println("Removing Item: " + item.toString());
+                i++;
+                // Remove item from iterator not the list to avoid concurrent modification
+                // exception
+                iterator.remove();
+            }
+        }
+
+        String return_string = Integer.toString(i) + " items removed";
+        if (i > 0) {
+            return return_string;
+        }
+        // Return error message
+        return "Cannot find Item";
+    }
+
     // Method to return the action items due at a certain date
     public void get_todos_for_date(LocalDate dueDate) {
 

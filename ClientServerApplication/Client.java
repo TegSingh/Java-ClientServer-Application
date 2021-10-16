@@ -69,9 +69,12 @@ class Client {
                         System.out.println("------------------------------");
                         System.out.println("Your current Todo list");
 
+                        client_list_items = in.readLine();
+
                         // Read the messages from the server
-                        while ((list_items = in.readLine()) != null) {
-                            System.out.println(list_items);
+                        while (!client_list_items.equals("done")) {
+                            System.out.println(client_list_items);
+                            client_list_items = in.readLine();
                         }
 
                         System.out.println("------------------------------");
@@ -117,11 +120,6 @@ class Client {
                         out.println(action_item);
                         out.flush();
 
-                        System.out.println("Enter Task ID: ");
-                        int id = scanner.nextInt();
-                        out.println(id);
-                        out.flush();
-
                         System.out.println("Enter year for due date: ");
                         int year = scanner.nextInt();
                         out.println(year);
@@ -163,6 +161,7 @@ class Client {
 
                     // Remove Todos for a particular client
                     case 6:
+                        System.out.println(in.readLine());
                         break;
 
                     default:

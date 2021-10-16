@@ -46,19 +46,17 @@ class Server {
         private final Socket clientSocket;
         // Make this variable static so all instances share the same instance
         private static Todo_list todo_list = new Todo_list();
-        // private int id;
+        private int id;
 
         public ClientHandler(Socket socket) {
             this.clientSocket = socket;
-            // id =
-            // Integer.parseInt(clientSocket.getRemoteSocketAddress().toString().split(":")[1]);
+            id = Integer.parseInt(clientSocket.getRemoteSocketAddress().toString().split(":")[1]);
         }
 
         // Method to get client ID
-        // public int get_client_id() {
-        // return this.id;
-        // return -1;
-        // }
+        public int get_client_id() {
+            return this.id;
+        }
 
         // Override the run method of the runnable interface
         public void run() {
@@ -94,6 +92,15 @@ class Server {
                             System.out.println("Client " + clientSocket.getRemoteSocketAddress()
                                     + " requests Display for To-do List for itself");
                             out.println("2");
+
+                            // Display the To-do list with the filtered items for a particular client ID
+                            ArrayList<Todo_item> list_client = todo_list.get_todo_list();
+                            for (Todo_item item : list_client) {
+                                if (item.get_id() == this.id)
+                                    out.println(item.toString());
+                            }
+                            out.println("done");
+
                             break;
 
                         case 3:
@@ -121,12 +128,12 @@ class Server {
                                     + " requests Adding a To-do to the list");
                             out.println("4");
                             String action_item = in.readLine();
-                            int id = Integer.parseInt(in.readLine());
+
                             int year = Integer.parseInt(in.readLine());
                             int month = Integer.parseInt(in.readLine());
                             int day = Integer.parseInt(in.readLine());
                             LocalDate dueDate = LocalDate.of(year, month, day);
-                            todo_list.add_todo(id, action_item, dueDate);
+                            todo_list.add_todo(this.id, action_item, dueDate);
                             break;
 
                         // Removing item from Todo list given some date
@@ -145,7 +152,9 @@ class Server {
                         case 6:
                             System.out.println("Client " + clientSocket.getRemoteSocketAddress()
                                     + " request removing its own To-dos ");
+                            String removed_list_client = todo_list.remove_todo_by_id(this.id);
                             out.println("6");
+                            out.println("Client ID: " + this.id + " " + removed_list_client);
                             break;
 
                         default:
