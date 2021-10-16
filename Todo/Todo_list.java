@@ -26,6 +26,10 @@ public class Todo_list {
 
     }
 
+    public ArrayList<Todo_item> get_todo_list() {
+        return todo_items;
+    }
+
     // Method to remove an action item from the list
     public String remove_todo(LocalDate dueDate) {
 

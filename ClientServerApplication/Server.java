@@ -3,6 +3,7 @@ package ClientServerApplication;
 import java.io.*;
 import java.net.*;
 import java.time.LocalDate;
+import java.util.*;
 
 import Todo.*;
 
@@ -45,10 +46,19 @@ class Server {
         private final Socket clientSocket;
         // Make this variable static so all instances share the same instance
         private static Todo_list todo_list = new Todo_list();
+        // private int id;
 
         public ClientHandler(Socket socket) {
             this.clientSocket = socket;
+            // id =
+            // Integer.parseInt(clientSocket.getRemoteSocketAddress().toString().split(":")[1]);
         }
+
+        // Method to get client ID
+        // public int get_client_id() {
+        // return this.id;
+        // return -1;
+        // }
 
         // Override the run method of the runnable interface
         public void run() {
@@ -71,7 +81,13 @@ class Server {
                             System.out.println("Client " + clientSocket.getRemoteSocketAddress()
                                     + " requests Display for To-do List");
                             out.println("1");
-                            todo_list.display_todo_list();
+
+                            // Display the To-do list
+                            ArrayList<Todo_item> list = todo_list.get_todo_list();
+                            for (Todo_item item : list) {
+                                out.println(item.toString());
+                            }
+                            out.println("done");
                             break;
 
                         case 2:
@@ -84,6 +100,19 @@ class Server {
                             System.out.println("Client " + clientSocket.getRemoteSocketAddress()
                                     + " requests Display for To-do List for some date");
                             out.println("3");
+                            int year_display = Integer.parseInt(in.readLine());
+                            int month_display = Integer.parseInt(in.readLine());
+                            int day_display = Integer.parseInt(in.readLine());
+                            LocalDate date_display = LocalDate.of(year_display, month_display, day_display);
+
+                            // Display the To-do list with the filtered items
+                            ArrayList<Todo_item> list_date = todo_list.get_todo_list();
+                            for (Todo_item item : list_date) {
+                                if (item.get_dueDate().equals(date_display))
+                                    out.println(item.toString());
+                            }
+                            out.println("done");
+
                             break;
 
                         // Adding Todo to the list
@@ -117,12 +146,6 @@ class Server {
                             System.out.println("Client " + clientSocket.getRemoteSocketAddress()
                                     + " request removing its own To-dos ");
                             out.println("6");
-                            break;
-
-                        case 7:
-                            System.out.println("Client " + clientSocket.getRemoteSocketAddress()
-                                    + " Request a file containing the list from the server");
-                            out.println("7");
                             break;
 
                         default:

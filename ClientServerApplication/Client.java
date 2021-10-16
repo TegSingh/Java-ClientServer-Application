@@ -6,6 +6,7 @@ import java.util.*;
 
 // Declare and define the client class
 class Client {
+
     public static void main(String[] args) {
         // Open a socket for connection on localhost:3000
         try (Socket sock = new Socket("localhost", 3000)) {
@@ -31,13 +32,11 @@ class Client {
                 System.out.println("4. Add a TO-DO to the List");
                 System.out.println("5. Remove TO-DOs for a certain Date from the List");
                 System.out.println("6. Remove TO-DOs for a certain client from the List");
-                System.out.println("7. Request a file containing list from the Server");
+                System.out.println("Enter \"Exit\" to terminate Client process");
                 System.out.println("Choose a number between 1-7: ");
+
                 // Get the choice from the user
                 int choice = scanner.nextInt();
-
-                // Read user input
-                // user_input = scanner.nextLine();
 
                 // Send user input to the server
                 out.println(choice);
@@ -51,10 +50,63 @@ class Client {
 
                 switch (server_choice) {
                     case 1:
+                        String list_items = null;
+                        System.out.println("------------------------------");
+                        System.out.println("Your current Todo list");
+
+                        list_items = in.readLine();
+                        // Read the messages from the server
+                        while (!list_items.equals("done")) {
+                            System.out.println(list_items);
+                            list_items = in.readLine();
+                        }
+
+                        System.out.println("------------------------------");
                         break;
+
                     case 2:
+                        String client_list_items = null;
+                        System.out.println("------------------------------");
+                        System.out.println("Your current Todo list");
+
+                        // Read the messages from the server
+                        while ((list_items = in.readLine()) != null) {
+                            System.out.println(list_items);
+                        }
+
+                        System.out.println("------------------------------");
+
                         break;
+
                     case 3:
+                        System.out.println("Enter year for due date: ");
+                        int year_display = scanner.nextInt();
+                        out.println(year_display);
+                        out.flush();
+
+                        System.out.println("Enter month for due date: ");
+                        int month_display = scanner.nextInt();
+                        out.println(month_display);
+                        out.flush();
+
+                        System.out.println("Enter day for due date: ");
+                        int day_display = scanner.nextInt();
+                        out.println(day_display);
+                        out.flush();
+
+                        String date_list_items = null;
+                        System.out.println("------------------------------");
+                        System.out.println("Your current Todo list for date");
+
+                        date_list_items = in.readLine();
+                        // Read the messages from the server
+                        while (!date_list_items.equals("done")) {
+                            System.out.println(date_list_items);
+                            date_list_items = in.readLine();
+                        }
+
+                        System.out.println("------------------------------");
+
                         break;
 
                     // Add Todo
@@ -108,11 +160,13 @@ class Client {
                         System.out.println(in.readLine());
 
                         break;
+
+                    // Remove Todos for a particular client
                     case 6:
                         break;
-                    case 7:
-                        break;
+
                     default:
+                        System.out.print("Invalid Input try again");
                         break;
                 }
 
