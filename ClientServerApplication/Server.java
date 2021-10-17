@@ -10,6 +10,13 @@ import Todo.*;
 // Declare and define the Server class
 class Server {
 
+    // List to store all client IDs
+    private static ArrayList<Integer> connected_clients = new ArrayList<Integer>();
+
+    public Server() {
+
+    }
+
     public static void main(String[] args) {
 
         ServerSocket server = null;
@@ -20,7 +27,17 @@ class Server {
             // Run infinitely until ctrl C interrupt provided
             while (true) {
                 Socket client = server.accept();
+                int client_id = Integer.parseInt(client.getRemoteSocketAddress().toString().split(":")[1]);
+
                 System.out.println("New Client IP:" + client.getRemoteSocketAddress());
+
+                // List the connected clients
+                System.out.println("List of clients connected: ");
+                connected_clients.add(client_id);
+                for (int id : connected_clients) {
+                    System.out.print(id + ", ");
+                }
+                System.out.println();
 
                 // Create a new thread to handle the client
                 ClientHandler clientSocket = new ClientHandler(client);
@@ -43,19 +60,17 @@ class Server {
 
     // Each client handler is associated with one thread that handles one client
     private static class ClientHandler implements Runnable {
+
         private final Socket clientSocket;
+
         // Make this variable static so all instances share the same instance
         private static Todo_list todo_list = new Todo_list();
+
         private int id;
 
-        public ClientHandler(Socket socket) {
-            this.clientSocket = socket;
+        public ClientHandler(Socket sock) {
+            this.clientSocket = sock;
             id = Integer.parseInt(clientSocket.getRemoteSocketAddress().toString().split(":")[1]);
-        }
-
-        // Method to get client ID
-        public int get_client_id() {
-            return this.id;
         }
 
         // Override the run method of the runnable interface

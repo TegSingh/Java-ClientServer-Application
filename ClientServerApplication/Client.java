@@ -19,11 +19,12 @@ class Client {
 
             // Create an object to get information as user input
             Scanner scanner = new Scanner(System.in);
-            String user_input = null;
+            int counter = 0;
 
             // Continue running the client until the user sends exit message
-            while (!"exit".equals(user_input)) {
+            while (counter < 1000) {
 
+                counter++;
                 // Display the Menu for the list of things a client
                 System.out.println("-------------------MENU-------------------");
                 System.out.println("1. Display TO-DO List");
@@ -33,7 +34,7 @@ class Client {
                 System.out.println("5. Remove TO-DOs for a certain Date from the List");
                 System.out.println("6. Remove TO-DOs for a certain client from the List");
                 System.out.println("Enter \"Exit\" to terminate Client process");
-                System.out.println("Choose a number between 1-7: ");
+                System.out.println("Choose an INTEGER between 1-7: ");
 
                 // Get the choice from the user
                 int choice = scanner.nextInt();
