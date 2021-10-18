@@ -189,7 +189,7 @@ class Server {
                 if (in != null) {
                     in.close();
                 }
-            } catch (IOException exception) {
+            } catch (Exception exception) {
                 exception.printStackTrace();
             }
 
